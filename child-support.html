@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="부모의 세전 월소득과 자녀 연령을 입력해 자녀 1명의 예상 월 양육비를 확인하는 참고 계산기입니다." />
+  <meta name="theme-color" content="#071a38" />
+  <title>예상 양육비 계산 | 부산이혼전문변호사 법무법인 율마루</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="child-support-page-body">
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html" aria-label="부산이혼전문변호사 홈으로 이동">
+      <img src="assets/yulmaru-logo.png" alt="법무법인 율마루 로고" />
+      <span><b>부산이혼전문변호사</b><small>법무법인 율마루</small></span>
+    </a>
+    <nav aria-label="주요 메뉴">
+      <a href="lawyers.html">변호사</a>
+      <a href="directions.html">오시는 길</a>
+      <a class="nav-inquiry-badge" href="inquiry.html">변호사 상담</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="메뉴 열기"><i></i><i></i></button>
+  </header>
+
+  <main class="child-support-standalone">
+    <section class="child-support-calculator" id="child-support" aria-labelledby="child-support-title">
+      <div class="child-support-inner">
+        <header class="child-support-heading">
+          <p><span></span> BUSAN CHILD SUPPORT GUIDE <span></span></p>
+          <h1 id="child-support-title">2026년 이혼 시<br /><em>예상 양육비 계산</em></h1>
+          <p>부모의 세전 월소득과 자녀의 연령을 입력하면<br />자녀 1명의 월 평균 양육비를 확인할 수 있습니다.</p>
+        </header>
+
+        <form class="support-calc-card" id="support-calc-form" novalidate>
+          <div class="support-calc-fields">
+            <label class="support-field" for="father-income">
+              <span class="support-field-label"><i class="support-field-icon support-field-icon-father" aria-hidden="true">man</i><span>부 월소득 <small>세전</small></span></span>
+              <span class="support-input-shell"><input id="father-income" name="fatherIncome" type="number" min="0" step="1" inputmode="numeric" required /><b>만원</b></span>
+            </label>
+            <label class="support-field" for="mother-income">
+              <span class="support-field-label"><i class="support-field-icon support-field-icon-mother" aria-hidden="true">woman</i><span>모 월소득 <small>세전</small></span></span>
+              <span class="support-input-shell"><input id="mother-income" name="motherIncome" type="number" min="0" step="1" inputmode="numeric" required /><b>만원</b></span>
+            </label>
+            <label class="support-field" for="child-age-band">
+              <span class="support-field-label"><i class="support-field-icon support-field-icon-age" aria-hidden="true"><span class="fa-solid fa-child-reaching"></span></i><span>아이 연령대</span></span>
+              <span class="support-input-shell support-select-shell">
+                <select id="child-age-band" name="childAgeBand" required>
+                  <option value="">연령대를 선택하세요</option>
+                  <option value="age0_2">0 ~ 2세</option><option value="age3_5">3 ~ 5세</option><option value="age6_8">6 ~ 8세</option>
+                  <option value="age9_11">9 ~ 11세</option><option value="age12_14">12 ~ 14세</option><option value="age15_18">15 ~ 18세</option>
+                </select>
+              </span>
+            </label>
+          </div>
+          <button class="support-calc-submit" type="submit"><span>양육비 계산하기</span><b aria-hidden="true">→</b></button>
+          <p class="support-calc-error" id="support-calc-error" role="alert" hidden>부·모의 월소득과 아이 연령대를 모두 입력해 주세요.</p>
+          <section class="support-result" id="support-result" aria-live="polite" hidden>
+            <div class="support-result-main"><span>자녀 1명당 월 평균 양육비</span><strong id="support-result-amount">0원</strong><small id="support-result-summary"></small></div>
+            <div class="support-result-shares" aria-label="부모 소득분담 참고값">
+              <div><span>부 소득분담</span><b id="father-share-result">-</b></div><div><span>모 소득분담</span><b id="mother-share-result">-</b></div>
+            </div>
+            <p id="support-result-note">입력한 소득 비율에 따른 단순 참고값이며, 실제 지급액은 양육자 여부와 재산·교육비·치료비·양육환경 등에 따라 달라질 수 있습니다.</p>
+          </section>
+        </form>
+      </div>
+    </section>
+  </main>
+
+<footer class="site-footer" id="locations"> <div class="footer-main"> <div class="footer-brand-block"> <div class="footer-brand-heading"> <span class="footer-brand-logo"> <img src="assets/yulmaru-logo.png" alt="율마루 로고" /> </span> <span class="footer-brand-copy"> <strong>부산이혼전문변호사</strong> <small>법무법인 율마루</small> </span> </div> <div class="footer-social" aria-label="소셜 채널 바로가기"> <a href="https://www.youtube.com/@yulmaru_n/videos" target="_blank" rel="noopener noreferrer" aria-label="유튜브 이혼의 전설"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a> <a href="https://www.instagram.com/yulmaru_n" target="_blank" rel="noopener noreferrer" aria-label="율마루 인스타그램"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a> <a href="https://www.threads.com/@yulmaru911?hl=ko" target="_blank" rel="noopener noreferrer" aria-label="율마루 스레드"><i class="fa-brands fa-threads" aria-hidden="true"></i></a> <a href="https://blog.naver.com/yulmaru119" target="_blank" rel="noopener noreferrer" aria-label="율마루 네이버 블로그"><b aria-hidden="true">N</b></a> </div> </div> <div class="footer-office-grid" aria-label="법무법인 율마루 지점 안내"> <div class="footer-office"> <b>서울 서초점</b> <span>서울 서초구 서초중앙로 156, 2층 (블루원빌딩)</span> </div> <div class="footer-office"> <b>부산 명지점</b> <span>부산 강서구 명지국제2로 80, 2층 53-55호 (명지동, e편한세상명지)</span> </div> <div class="footer-office"> <b>부산 센텀점</b> <span>부산 해운대구 센텀중앙로 97, A동 3004호 (재송동, 센텀스카이비즈)</span> </div> <div class="footer-office"> <b>부산 서면점</b> <span>부산 부산진구 중앙대로 754, 8층 (부전동, 주간인물사빌딩)</span> </div> <div class="footer-office"> <b>경남 창원점</b> <span>경남 창원시 성산구 창이대로689번길 4-16, 6층 (사파동, 법조빌딩)</span> </div> </div> <div class="footer-quick-column"> <details class="footer-site-links"> <summary class="footer-site-links-title"> <strong>사이트 바로가기</strong> <span aria-hidden="true"> </span> </summary> <div class="footer-site-links-menu"> <a href="https://yulmaru.co.kr/" target="_blank" rel="noopener noreferrer">율마루 홈페이지</a> <a href="https://yulmaru-recover.co.kr/" target="_blank" rel="noopener noreferrer">회생파산 홈페이지</a> </div> </details> </div> </div> <div class="footer-sub"> <div class="footer-notice"> <b>광고책임</b> <span>임재현 변호사</span> </div> <div class="footer-business"> <b>사업자</b> <span>806-86-02787</span> <b>이메일</b> <span>law119@yulmaru.com</span> <b>전화번호</b> <span>1800-6419</span> </div> <p class="footer-copy">Copyright © 2026 법무법인 율마루 All rights reserved.</p> </div> </footer>
+
+  <aside class="quick-menu" aria-label="빠른 상담">
+    <button class="quick-reserve" type="button" aria-expanded="false" aria-controls="quick-booking-menu"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>예약</span></button>
+    <button class="quick-chat" type="button" aria-expanded="false" aria-controls="quick-chat-menu"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>채팅상담</span></button>
+    <a href="#child-support"><i class="fa-solid fa-calculator" aria-hidden="true"></i><span>양육비 계산</span></a>
+    <a href="#top"><b>↑</b><span>TOP</span></a>
+    <div class="quick-booking-menu" id="quick-booking-menu" aria-label="예약 지점 선택" hidden>
+      <a href="https://booking.naver.com/booking/13/bizes/555238" target="_blank" rel="noopener noreferrer">명지</a><a href="https://booking.naver.com/booking/6/bizes/990663" target="_blank" rel="noopener noreferrer">센텀</a><a href="https://booking.naver.com/booking/13/bizes/1157793" target="_blank" rel="noopener noreferrer">서면</a><a href="https://booking.naver.com/booking/6/bizes/1466063" target="_blank" rel="noopener noreferrer">창원</a>
+    </div>
+    <div class="quick-chat-menu" id="quick-chat-menu" aria-label="채팅 상담 채널 선택" hidden><a href="https://talk.naver.com/ct/w3snxlc" target="_blank" rel="noopener noreferrer">네이버</a><a href="http://pf.kakao.com/_Ykxfxkxj/chat" target="_blank" rel="noopener noreferrer">카톡</a></div>
+  </aside>
+
+  <nav class="mobile-bar" aria-label="모바일 빠른 메뉴">
+    <a href="directions.html"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>오시는 길</span></a>
+    <a href="#child-support" aria-current="page"><i class="fa-solid fa-calculator" aria-hidden="true"></i><span>양육비 계산</span></a>
+    <button class="mobile-reserve" type="button" aria-expanded="false" aria-controls="mobile-booking-menu"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>예약</span></button>
+    <a href="tel:1800-6419"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>전화</span></a>
+    <button class="mobile-chat" type="button" aria-expanded="false" aria-controls="mobile-chat-menu"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>채팅상담</span></button>
+    <div class="mobile-booking-menu" id="mobile-booking-menu" aria-label="예약 지점 선택" hidden>
+      <a href="https://booking.naver.com/booking/13/bizes/555238" target="_blank" rel="noopener noreferrer">명지</a><a href="https://booking.naver.com/booking/6/bizes/990663" target="_blank" rel="noopener noreferrer">센텀</a><a href="https://booking.naver.com/booking/13/bizes/1157793" target="_blank" rel="noopener noreferrer">서면</a><a href="https://booking.naver.com/booking/6/bizes/1466063" target="_blank" rel="noopener noreferrer">창원</a>
+    </div>
+    <div class="mobile-chat-menu" id="mobile-chat-menu" aria-label="채팅 상담 채널 선택" hidden><a href="https://talk.naver.com/ct/w3snxlc" target="_blank" rel="noopener noreferrer">네이버</a><a href="http://pf.kakao.com/_Ykxfxkxj/chat" target="_blank" rel="noopener noreferrer">카톡</a></div>
+  </nav>
+
+  <script src="mobile-booking.js"></script>
+  <script src="child-support.js"></script>
+</body>
+</html>
