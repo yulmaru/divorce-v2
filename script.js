@@ -332,8 +332,11 @@ if (featuredLawyerConsultTrigger && lawyerConsultModal && lawyerConsultTitle && 
     };
 
     submitButton.disabled = true;
-    lawyerConsultStatus.textContent = "전송 중입니다.";
+    submitButton.classList.add("is-loading");
+    submitButton.firstChild.textContent = "접수 중 ";
+    lawyerConsultStatus.textContent = "접수 중입니다.";
     lawyerConsultStatus.classList.remove("error");
+    let lawyerConsultationSubmitted = false;
 
     try {
       const destination = new URL(endpoint, window.location.href);
@@ -346,6 +349,7 @@ if (featuredLawyerConsultTrigger && lawyerConsultModal && lawyerConsultTitle && 
       });
       if (!crossOrigin && !response.ok) throw new Error(`HTTP ${response.status}`);
       lawyerConsultStatus.textContent = "상담 요청이 접수되었습니다. 확인 후 연락드리겠습니다.";
+      lawyerConsultationSubmitted = true;
       lawyerConsultForm.reset();
       lawyerConsultForm.elements.lawyer.value = lawyerName;
     } catch (error) {
@@ -354,6 +358,8 @@ if (featuredLawyerConsultTrigger && lawyerConsultModal && lawyerConsultTitle && 
       lawyerConsultStatus.classList.add("error");
     } finally {
       submitButton.disabled = false;
+      submitButton.classList.remove("is-loading");
+      submitButton.firstChild.textContent = lawyerConsultationSubmitted ? "접수 완료 " : "상담 요청하기 ";
     }
   });
 }
@@ -484,9 +490,11 @@ consultDetailsForm.addEventListener("submit", async event => {
   const payload = new URLSearchParams({ payload: JSON.stringify(leadPayload) });
 
   submitButton.disabled = true;
-  submitButton.firstChild.textContent = "전송 중... ";
+  submitButton.classList.add("is-loading");
+  submitButton.firstChild.textContent = "접수 중 ";
   consultSubmitStatus.textContent = "";
   consultSubmitStatus.classList.remove("error");
+  let consultationSubmitted = false;
 
   try {
     const destination = new URL(endpoint, window.location.href);
@@ -500,6 +508,7 @@ consultDetailsForm.addEventListener("submit", async event => {
     if (!crossOrigin && !response.ok) throw new Error(`HTTP ${response.status}`);
 
     consultSubmitStatus.textContent = "상담 신청이 접수되었습니다. 확인 후 연락드리겠습니다.";
+    consultationSubmitted = true;
     consultDetailsForm.reset();
     heroInquiry.value = "";
     updateInquiryCount();
@@ -509,7 +518,8 @@ consultDetailsForm.addEventListener("submit", async event => {
     consultSubmitStatus.classList.add("error");
   } finally {
     submitButton.disabled = false;
-    submitButton.firstChild.textContent = "상담 신청 완료 ";
+    submitButton.classList.remove("is-loading");
+    submitButton.firstChild.textContent = consultationSubmitted ? "접수 완료 " : "상담 신청 완료 ";
   }
 });
 }
@@ -544,6 +554,11 @@ if (finalDbForm) {
   finalPhone.addEventListener("input", () => {
     finalPhone.value = formatFinalPhone(finalPhone.value);
     finalPhone.setCustomValidity("");
+    if (stepTwoPhone) stepTwoPhone.value = finalPhone.value;
+  });
+
+  finalPhone.addEventListener("blur", () => {
+    finalPhone.value = formatFinalPhone(finalPhone.value);
     if (stepTwoPhone) stepTwoPhone.value = finalPhone.value;
   });
 
@@ -582,8 +597,11 @@ if (finalDbForm) {
     };
 
     submitButton.disabled = true;
-    finalDbStatus.textContent = "전송 중입니다.";
+    submitButton.classList.add("is-loading");
+    submitButton.querySelector("span").textContent = "접수 중";
+    finalDbStatus.textContent = "접수 중입니다.";
     finalDbStatus.classList.remove("error");
+    let finalConsultationSubmitted = false;
 
     try {
       const destination = new URL(endpoint, window.location.href);
@@ -596,6 +614,7 @@ if (finalDbForm) {
       });
       if (!crossOrigin && !response.ok) throw new Error(`HTTP ${response.status}`);
       finalDbStatus.textContent = "상담 신청이 접수되었습니다. 확인 후 연락드리겠습니다.";
+      finalConsultationSubmitted = true;
       finalDbForm.reset();
       caseTypeButtons[0]?.click();
     } catch (error) {
@@ -604,6 +623,8 @@ if (finalDbForm) {
       finalDbStatus.classList.add("error");
     } finally {
       submitButton.disabled = false;
+      submitButton.classList.remove("is-loading");
+      submitButton.querySelector("span").textContent = finalConsultationSubmitted ? "접수 완료" : "상담 신청하기";
     }
   });
 }
@@ -630,6 +651,294 @@ nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => s
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") setMenuOpen(false);
 });
+
+const successCaseTrack = document.querySelector("#success-case-track");
+if (successCaseTrack && window.YULMARU_CASES) {
+  const caseLawyerProfiles = {
+    "임재현": "assets/lawyer-im-jae-hyun.webp",
+    "박상준": "assets/lawyer-park-sang-jun.webp",
+    "문지영": "assets/lawyer-moon-ji-young.webp",
+    "이주원": "assets/lawyer-lee-ju-won.webp"
+  };
+  const renderCaseLawyers = lawyers => {
+    const lawyerOrder = { "박상준": 0, "임재현": 1 };
+    const names = lawyers.replaceAll(" 변호사", "").split(" · ").sort((a, b) =>
+      (lawyerOrder[a] ?? 2) - (lawyerOrder[b] ?? 2)
+    );
+    return `<div class="success-case-lawyers"><small>담당변호사</small><div>${names.map(name => `
+      <span class="success-case-lawyer"><img src="${caseLawyerProfiles[name] || caseLawyerProfiles["임재현"]}" alt="${name} 변호사" /><b>${name} 변호사</b></span>`).join("")}</div></div>`;
+  };
+  const orderedSuccessCases = [...window.YULMARU_CASES].sort((a, b) =>
+    Number(b.lawyers.includes("박상준")) - Number(a.lawyers.includes("박상준"))
+  );
+  successCaseTrack.innerHTML = orderedSuccessCases.map(item => `
+    <a class="success-case-card" data-case-id="${item.id}" data-case-category="${item.category}" href="case-detail.html?id=${item.id}" target="_blank" rel="noopener">
+      <div class="success-case-copy"><span>${item.tag.replaceAll(" · ", " ")}</span><h3>${item.title}</h3>${renderCaseLawyers(item.lawyers)}</div>
+      <div class="success-case-document"><img src="${item.image}" alt="${item.title} 판결문 자료" loading="lazy" /><strong>${item.result.replace("\n", "<br />")}</strong></div>
+    </a>`).join("");
+}
+const successSection = document.querySelector("#success-cases");
+const clientReviewsSection = document.querySelector("#reviews");
+const youtubeSection = document.querySelector("#videos");
+const issuesSection = document.querySelector("#issues");
+if (successSection && youtubeSection && issuesSection) {
+  youtubeSection.before(successSection);
+  if (clientReviewsSection) successSection.after(clientReviewsSection);
+  youtubeSection.after(issuesSection);
+}
+const successCaseCards = [...document.querySelectorAll(".success-case-card")];
+const successCaseCount = document.querySelector("#success-case-count");
+
+const updateSuccessCaseCount = () => {
+  if (!successCaseTrack || !successCaseCount) return;
+  const visibleCards = successCaseCards.filter(card => !card.hidden);
+  if (!visibleCards.length) {
+    successCaseCount.textContent = "0 / 0";
+    return;
+  }
+  const trackLeft = successCaseTrack.getBoundingClientRect().left;
+  const firstVisible = visibleCards.findIndex(card => card.getBoundingClientRect().right > trackLeft + 10);
+  const start = Math.max(0, firstVisible);
+  const cardsPerView = window.innerWidth <= 720 ? 1 : window.innerWidth <= 1100 ? 2 : 4;
+  const end = Math.min(visibleCards.length, start + cardsPerView);
+  successCaseCount.textContent = `${start + 1}–${end} / ${visibleCards.length}`;
+};
+
+document.querySelectorAll("[data-case-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.caseFilter;
+    document.querySelectorAll("[data-case-filter]").forEach(item => {
+      const active = item === button;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    successCaseCards.forEach(card => {
+      const categories = card.dataset.caseCategory.split(" ");
+      const matchesFamily = filter === "family" && categories.includes("child");
+      card.hidden = filter !== "all" && !categories.includes(filter) && !matchesFamily;
+    });
+    successCaseTrack?.scrollTo({ left: 0, behavior: "smooth" });
+    window.setTimeout(() => { updateSuccessCaseCount(); updateSuccessCaseNav(); }, 250);
+  });
+});
+
+document.querySelectorAll("[data-case-scroll]").forEach(button => {
+  button.addEventListener("click", () => {
+    if (!successCaseTrack) return;
+    const direction = button.dataset.caseScroll === "prev" ? -1 : 1;
+    const limit = Math.max(0, successCaseTrack.scrollWidth - successCaseTrack.clientWidth);
+    const distance = Math.max(successCaseTrack.clientWidth * .78, 260);
+    successCaseTrack.scrollTo({ left: Math.min(Math.max(successCaseTrack.scrollLeft + distance * direction, 0), limit), behavior: "smooth" });
+  });
+});
+const updateSuccessCaseNav = () => {
+  if (!successCaseTrack) return;
+  const limit = Math.max(0, successCaseTrack.scrollWidth - successCaseTrack.clientWidth);
+  const prev = document.querySelector('[data-case-scroll="prev"]');
+  const next = document.querySelector('[data-case-scroll="next"]');
+  if (prev) prev.disabled = limit <= 4 || successCaseTrack.scrollLeft <= 3;
+  if (next) next.disabled = limit <= 4 || successCaseTrack.scrollLeft >= limit - 3;
+};
+successCaseTrack?.addEventListener("scroll", updateSuccessCaseCount, { passive: true });
+successCaseTrack?.addEventListener("scroll", updateSuccessCaseNav, { passive: true });
+window.addEventListener("resize", () => { updateSuccessCaseCount(); updateSuccessCaseNav(); });
+updateSuccessCaseCount();
+requestAnimationFrame(updateSuccessCaseNav);
+
+if (successCaseTrack) {
+  let pressed = false;
+  let dragged = false;
+  let startX = 0;
+  let lastX = 0;
+  let suppressCaseClick = false;
+  let momentumFrame = 0;
+  let lastFrameTime = 0;
+  let velocity = 0;
+  let dragHistory = [];
+
+  const stopMomentum = () => {
+    if (momentumFrame) cancelAnimationFrame(momentumFrame);
+    momentumFrame = 0;
+    velocity = 0;
+    lastFrameTime = 0;
+    successCaseTrack.style.scrollBehavior = "";
+    successCaseTrack.style.scrollSnapType = "";
+  };
+
+  const applyMomentum = time => {
+    if (!lastFrameTime) {
+      lastFrameTime = time;
+      momentumFrame = requestAnimationFrame(applyMomentum);
+      return;
+    }
+    const deltaTime = Math.min(time - lastFrameTime, 32);
+    lastFrameTime = time;
+    const before = successCaseTrack.scrollLeft;
+    successCaseTrack.scrollLeft += velocity * deltaTime;
+    velocity *= Math.pow(.95, deltaTime / 16.67);
+    const hitEdge = Math.abs(successCaseTrack.scrollLeft - before) < .5;
+    if (Math.abs(velocity) < .01 || hitEdge) {
+      stopMomentum();
+      return;
+    }
+    momentumFrame = requestAnimationFrame(applyMomentum);
+  };
+
+  successCaseTrack.addEventListener("pointerdown", event => {
+    if (event.button !== undefined && event.button !== 0) return;
+    stopMomentum();
+    pressed = true;
+    dragged = false;
+    suppressCaseClick = false;
+    startX = lastX = event.clientX;
+    dragHistory = [{ x: event.clientX, time: performance.now() }];
+    successCaseTrack.classList.add("is-dragging");
+  });
+
+  successCaseTrack.addEventListener("pointermove", event => {
+    if (!pressed) return;
+    const now = performance.now();
+    const distance = event.clientX - lastX;
+    const totalDistance = event.clientX - startX;
+    if (!dragged && Math.abs(totalDistance) > 12) {
+      dragged = true;
+      successCaseTrack.setPointerCapture?.(event.pointerId);
+      successCaseTrack.style.scrollBehavior = "auto";
+      successCaseTrack.style.scrollSnapType = "none";
+    }
+    if (!dragged) {
+      lastX = event.clientX;
+      return;
+    }
+    if (event.cancelable) event.preventDefault();
+    successCaseTrack.scrollLeft -= distance;
+    lastX = event.clientX;
+    dragHistory.push({ x: event.clientX, time: now });
+    while (dragHistory.length > 1 && now - dragHistory[0].time > 80) dragHistory.shift();
+  });
+
+  ["pointerup", "pointercancel"].forEach(type => successCaseTrack.addEventListener(type, event => {
+    if (!pressed) return;
+    pressed = false;
+    successCaseTrack.classList.remove("is-dragging");
+    if (successCaseTrack.hasPointerCapture?.(event.pointerId)) successCaseTrack.releasePointerCapture?.(event.pointerId);
+    if (type === "pointerup" && dragged) {
+      suppressCaseClick = true;
+      const now = performance.now();
+      const oldest = dragHistory[0] || { x: event.clientX, time: now };
+      const elapsed = Math.max(now - oldest.time, 1);
+      velocity = elapsed > 4 ? -(event.clientX - oldest.x) / elapsed : 0;
+      velocity = Math.max(-2.8, Math.min(2.8, velocity));
+      if (Math.abs(velocity) < .12) velocity = 0;
+      lastFrameTime = 0;
+      if (velocity) momentumFrame = requestAnimationFrame(applyMomentum);
+      else stopMomentum();
+      window.setTimeout(() => { suppressCaseClick = false; }, 80);
+    }
+    dragged = false;
+    dragHistory = [];
+  }));
+  successCaseTrack.addEventListener("dragstart", event => event.preventDefault());
+  successCaseTrack.addEventListener("click", event => {
+    if (suppressCaseClick) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+}
+
+const clientReviews = [
+  { name:"김OO씨", branch:"부산 센텀점", date:"2026.09", text:"감정이 앞서 두서없이 이야기했는데도 끝까지 차분히 들어주셔서 마음이 안정됐습니다. 어린아이와 함께 방문했는데 상담 공간도 편안했고, 현실적인 조언이 큰 도움이 됐습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA3MDJfMjk4/MDAxNzgyOTc4MDAyNDEz.0N5p-JKOGDN78eWp3qlQ42X01gkM6YmlsCyONCB6uxIg.RyyN6CBuLLbpWx3a0dIeg-P1DRyYwign9-ng1kCIAK8g.JPEG/E0C2D15D-B15D-46E2-B8A7-787F9979845E.jpeg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"이OO씨", branch:"부산 명지점", date:"2026.09", text:"해결되지 않을 것 같아 막막했는데 상담을 받고 마음이 한결 가벼워졌습니다. 복잡한 이야기를 잘 정리해주시고 모르는 부분도 이해하기 쉽게 설명해주셨습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
+  { name:"박OO씨", branch:"부산 센텀점", date:"2026.07", text:"가족 문제로 처음 법률상담을 받았습니다. 가능한 부분과 어려운 부분을 객관적으로 구분해주시고, 궁금했던 질문에도 친절하게 답해주셔서 방향을 정하는 데 도움이 됐습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA1MjZfMTg5/MDAxNzc5NzcyODQwNjE1.EqBBUFuooAI6FEDp75G5wwH9gfoUDGtI8YJdOoPa3NYg.eCrbhy6PkpKepqMgwkWKbwVb3_tDRM8PbGzheLs7WWgg.JPEG/20260526_130847.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"최OO씨", branch:"부산 명지점", date:"2026.08", text:"이혼을 어디서부터 준비해야 할지 막연했는데 상담 후 답답했던 마음과 생각이 정리됐습니다. 부담 없이 이야기할 수 있도록 편안하게 상담해주셨습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
+  { name:"정OO씨", branch:"부산 서면점", date:"2026.06", text:"상담만이라도 받아보자는 마음으로 방문했는데 미처 생각하지 못했던 부분까지 짚어주시고, 앞으로 선택할 수 있는 방법을 구체적으로 제시해주셔서 감사했습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA0MjFfOTQg/MDAxNzc2NzM4OTgyMDUx.Y-38HmhYkh5lM-vrBwQGtrsIKw9V7jhIfnKCJNVOevAg.gClvdOlcrt9OgLW3lkNKAcHsixiZVOdRm_-VGoIMA8kg.JPEG/3E889132-5B71-47D9-96A2-3B4B37A02B4C.jpeg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"한OO씨", branch:"부산 서면점", date:"2026.05", text:"걱정이 많았는데 상황을 일목요연하게 정리하고 명쾌하게 설명해주셨습니다. 꼼꼼한 안내와 깔끔한 상담 공간도 인상적이었습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"윤OO씨", branch:"경남 창원점", date:"2026.08", text:"전문가의 도움이 절실했던 상황에서 여러 방향과 가능한 방법을 차분히 안내받았습니다. 제 일처럼 함께 고민해주는 든든한 지원군이 생긴 느낌이었습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA0MDNfMTkg/MDAxNzc1MTgyMzE2NTcw.ikgZGA6RG8qkL6s1gtL7q1oItRAkMxLV3dh4OWNfCZsg.VqsLlHmbSdUfoY3NOL1sBW6Rh_PG15IH1iFnKlaYjlQg.JPEG/20260403_111054.heic.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
+  { name:"오OO씨", branch:"경남 창원점", date:"2026.06", text:"무거운 마음으로 들어갔지만 성의 있는 상담을 받고 가벼운 마음으로 나왔습니다. 낯선 법률 내용도 제 눈높이에 맞춰 꼼꼼하게 설명해주셨습니다.", photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" }
+];
+const clientReviewTotal = 702;
+
+const clientReviewFeature = document.querySelector("#client-review-feature");
+const clientReviewList = document.querySelector("#client-review-list");
+const clientReviewPosition = document.querySelector("#client-review-position");
+if (clientReviewFeature && clientReviewList && clientReviewPosition) {
+  const renderClientReview = index => {
+    const review = clientReviews[index];
+    const visual = review.photo
+      ? `<div class="client-review-photo"><img src="${review.photo}" alt="${review.branch} 네이버 방문자 리뷰에 첨부된 사진" loading="lazy" referrerpolicy="no-referrer" /></div>`
+      : `<div class="client-review-photo client-review-photo-empty"><span aria-hidden="true">“</span></div>`;
+    clientReviewFeature.innerHTML = `${visual}<div class="client-review-feature-copy"><div class="client-review-feature-meta"><b>${review.name}</b><span class="client-review-stars" aria-label="별점 5점">★★★★★</span></div><blockquote>“${review.text}”</blockquote><footer><span>${review.branch} · ${review.date} · 네이버 방문자 리뷰 요약</span><a href="${review.source}" target="_blank" rel="noopener noreferrer">원문 출처 보기 ↗</a></footer></div>`;
+    clientReviewPosition.textContent = `${String(index + 1).padStart(3,"0")} / ${String(clientReviewTotal).padStart(3,"0")}`;
+    clientReviewList.querySelectorAll(".client-review-item").forEach((button, buttonIndex) => {
+      const active = buttonIndex === index;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  };
+  clientReviewList.innerHTML = clientReviews.map((review, index) => `<button class="client-review-item${index === 0 ? " active" : ""}" type="button" role="listitem" aria-pressed="${index === 0}"><span class="client-review-avatar" aria-hidden="true">${review.name.slice(0,1)}</span><span><strong>${review.name} · ${review.branch}</strong><p>${review.text}</p></span><small>${review.photo ? "사진 후기" : "방문 후기"}</small></button>`).join("");
+  clientReviewList.querySelectorAll(".client-review-item").forEach((button, index) => button.addEventListener("click", () => renderClientReview(index)));
+  renderClientReview(0);
+}
+
+const officeGallery = document.querySelector(".office-gallery");
+if (officeGallery) {
+  const officePhotos = [
+    ["assets/office-01.jpg", "WELCOME DESK", "편안한 상담을 시작하는 공간", "법무법인 율마루 안내 데스크"],
+    ["assets/office-02.jpg", "RECEPTION", "차분하게 맞이하는 안내 공간", "법무법인 율마루 리셉션과 복도"],
+    ["assets/office-03.jpg", "YULMARU OFFICE", "신뢰를 마주하는 첫 공간", "율마루 로고가 보이는 안내 데스크"],
+    ["assets/office-04.jpg", "CONSULTING LOUNGE", "도시를 바라보며 생각을 정리하는 곳", "전망이 보이는 사무실 상담 라운지"],
+    ["assets/office-05.jpg", "OPEN LOUNGE", "밝고 편안하게 열린 상담 환경", "전망과 소파가 있는 사무실 라운지"],
+    ["assets/office-06.jpg", "PRIVATE ROOM", "이야기에 온전히 집중하는 공간", "창가에 마련된 독립 상담 공간"],
+    ["assets/office-07.jpg", "WELCOME DESK", "따뜻한 인상으로 시작되는 상담", "우드 벽면의 율마루 안내 데스크"],
+    ["assets/office-08.jpg", "CLIENT LOUNGE", "상담 전 편안히 머무는 공간", "수상 내역이 전시된 고객 라운지"],
+    ["assets/office-09.jpg", "WAITING LOUNGE", "차분한 기다림을 위한 공간", "소파와 전시장이 있는 대기 공간"],
+    ["assets/office-10.jpg", "OFFICE LOUNGE", "안정감을 담은 넓고 밝은 공간", "유리벽 너머로 보이는 사무실 라운지"],
+    ["assets/office-11.jpg", "CONFERENCE ROOM", "함께 해법을 찾는 회의 공간", "대형 테이블이 있는 사무실 회의실"],
+    ["assets/office-12.jpg", "YULMARU RECORDS", "축적된 경험과 전문성이 보이는 곳", "자격 및 수상 내역 전시 공간"],
+    ["assets/office-13.jpg", "MEETING ROOM", "사건을 깊이 검토하는 공간", "전시장과 회의 테이블이 있는 회의실"],
+    ["assets/office-14.jpg", "OFFICE HALL", "각 공간을 조용히 잇는 동선", "전시장과 복도로 이어진 사무실 내부"],
+    ["assets/office-15.jpg", "PRIVATE LOUNGE", "긴장을 덜어주는 편안한 공간", "소파와 조명이 놓인 상담 라운지"],
+    ["assets/office-16.jpg", "YULMARU IDENTITY", "율마루의 이름으로 마주하는 신뢰", "벽면에 설치된 법무법인 율마루 로고"],
+    ["assets/office-17.jpg", "RECEPTION DESK", "방문객을 정중하게 맞이하는 곳", "율마루 로고가 보이는 정면 안내 데스크"],
+    ["assets/office-18.jpg", "OFFICE VIEW", "상담 공간으로 이어지는 차분한 내부", "안내 데스크와 복도가 보이는 사무실" ]
+  ];
+  const track = officeGallery.querySelector("#office-gallery-track");
+  const background = officeGallery.querySelector("#office-gallery-bg");
+  const officeSizes = ["large", "small", "small", "feature", "small", "small", "large", "small", "small", "feature", "small", "small", "large", "small", "small", "feature", "small", "small"];
+  track.innerHTML = officePhotos.map(([src, label, caption, alt], index) => `
+    <button class="office-gallery-item${index === 0 ? " active" : ""}" type="button" data-office-index="${index}" data-size="${officeSizes[index]}" aria-label="${alt}" aria-pressed="${index === 0}">
+      <img src="${src}" alt="${alt}" loading="${index === 0 ? "eager" : "lazy"}" />
+      <span><small>${label}</small><strong>${caption}</strong></span>
+    </button>`).join("");
+  const officeItems = [...track.querySelectorAll(".office-gallery-item")];
+  const sizeOfficeGrid = () => {
+    const mobile = window.matchMedia("(max-width:720px)").matches;
+    const columns = mobile ? 3 : 6;
+    const gap = mobile ? 8 : 12;
+    track.style.setProperty("--office-cell", `${(track.clientWidth - gap * (columns - 1)) / columns}px`);
+  };
+  sizeOfficeGrid();
+  new ResizeObserver(sizeOfficeGrid).observe(track);
+  let officeIndex = 0;
+  let officeChangeTimer = 0;
+  const showOfficePhoto = nextIndex => {
+    officeIndex = (nextIndex + officePhotos.length) % officePhotos.length;
+    const [src] = officePhotos[officeIndex];
+    officeItems.forEach((item, index) => {
+      const active = index === officeIndex;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    officeGallery.classList.add("is-changing");
+    window.clearTimeout(officeChangeTimer);
+    officeChangeTimer = window.setTimeout(() => {
+      background.src = src;
+      officeGallery.classList.remove("is-changing");
+    }, 180);
+  };
+  officeItems.forEach(item => item.addEventListener("click", () => showOfficePhoto(Number(item.dataset.officeIndex))));
+}
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {

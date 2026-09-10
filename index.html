@@ -21,11 +21,11 @@
       <span><b>부산이혼전문변호사</b><small>법무법인 율마루</small></span>
     </a>
     <nav aria-label="주요 메뉴">
-      <a href="lawyers.html">변호사</a>
+      <a href="lawyers.html">변호사 소개</a>
       <a href="directions.html">오시는 길</a>
       <a class="nav-inquiry-badge" href="inquiry.html">변호사 상담</a>
     </nav>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="메뉴 열기"><i></i><i></i></button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="메뉴 열기"><i></i><i></i><i></i></button>
   </header>
 
   <main>
@@ -50,45 +50,37 @@
       <div class="featured-lawyer-pagination" id="featured-lawyer-pagination" role="tablist" aria-label="변호사 소개 페이지"></div>
     </section>
 
-    <section class="issues section" id="issues">
-      <div class="section-head reveal">
-        <p class="eyebrow dark"><span></span> DIVORCE ISSUES</p>
-        <h2>지금, 무엇이<br /><em>가장 두려우신가요?</em></h2>
-        <p>감정은 복잡해도 쟁점은 분명해야 합니다.<br />내 상황에 가까운 항목부터 확인하세요.</p>
+    <section class="success-cases" id="success-cases" aria-labelledby="success-cases-title">
+      <div class="success-cases-head reveal">
+        <p>SUCCESSFUL CASE</p>
+        <h2 id="success-cases-title">치밀한 전략으로 만든<br /><em>성공사례 케이스</em></h2>
+        <div class="success-case-filters" aria-label="성공사례 분류">
+          <button class="active" type="button" data-case-filter="all" aria-pressed="true">전체</button>
+          <button type="button" data-case-filter="property" aria-pressed="false">재산분할</button>
+          <button type="button" data-case-filter="affair" aria-pressed="false">상간·위자료</button>
+          <button type="button" data-case-filter="child" aria-pressed="false">양육권·양육비</button>
+          <button type="button" data-case-filter="family" aria-pressed="false">가사·상속</button>
+        </div>
       </div>
-      <div class="issue-grid">
-        <article class="issue-card reveal" data-target="property" style="--issue-image: url('assets/divorce-07-apartment-division.webp')">
-          <span class="issue-no">01</span>
-          <div class="issue-icon">₩</div>
-          <p>내가 일군 재산인데</p>
-          <h3>절반을 내줘야 할까?</h3>
-          <small>부동산 · 예금 · 주식 · 퇴직금 · 채무</small>
-          <button type="button">재산분할 핵심 보기 <span>→</span></button>
-        </article>
-        <article class="issue-card reveal delay-1" data-target="affair" style="--issue-image: url('assets/divorce-04-affair-phone.webp')">
-          <span class="issue-no">02</span>
-          <div class="issue-icon">!</div>
-          <p>외도 사실은 분명한데</p>
-          <h3>증거가 부족하다면?</h3>
-          <small>상간소송 · 위자료 · 합법적 증거</small>
-          <button type="button">외도 대응 핵심 보기 <span>→</span></button>
-        </article>
-        <article class="issue-card reveal delay-2" data-target="child" style="--issue-image: url('assets/issue-child-custody.png')">
-          <span class="issue-no">03</span>
-          <div class="issue-icon">⌂</div>
-          <p>아이만은 반드시</p>
-          <h3>내가 지키고 싶다면?</h3>
-          <small>친권 · 양육권 · 양육비 · 면접교섭</small>
-          <button type="button">양육권 핵심 보기 <span>→</span></button>
-        </article>
-        <article class="issue-card reveal delay-3" data-target="refusal" style="--issue-image: url('assets/divorce-03-refusal-separation.webp')">
-          <span class="issue-no">04</span>
-          <div class="issue-icon">↯</div>
-          <p>상대가 끝까지</p>
-          <h3>이혼을 거부한다면?</h3>
-          <small>재판상 이혼 · 조정 · 유책사유</small>
-          <button type="button">소송 절차 핵심 보기 <span>→</span></button>
-        </article>
+      <div class="success-case-viewport">
+        <button class="success-case-nav success-case-prev" type="button" data-case-scroll="prev" aria-label="이전 성공사례"></button>
+        <div class="success-case-track" id="success-case-track" aria-live="polite"></div>
+        <button class="success-case-nav success-case-next" type="button" data-case-scroll="next" aria-label="다음 성공사례"></button>
+      </div>
+    </section>
+
+    <section class="client-reviews" id="reviews" aria-labelledby="client-reviews-title">
+      <div class="client-reviews-head reveal">
+        <p>CLIENT REVIEW</p>
+        <h2 id="client-reviews-title">직접 방문한 의뢰인들이 남긴<br /><em>율마루의 실제 후기</em></h2>
+        <span>네이버 방문자 리뷰를 바탕으로 개인정보를 가명 처리하고 문장을 읽기 쉽게 요약했습니다.</span>
+      </div>
+      <div class="client-reviews-layout">
+        <article class="client-review-feature reveal" id="client-review-feature" aria-live="polite"></article>
+        <div class="client-review-list-wrap reveal delay-1">
+          <div class="client-review-list-head"><b>전체 후기 702</b><span id="client-review-position">001 / 702</span></div>
+          <div class="client-review-list" id="client-review-list" role="list"></div>
+        </div>
       </div>
     </section>
 
@@ -117,6 +109,27 @@
             <div class="legend-playlist" id="legend-playlist" aria-label="이혼의 전설 영상 목록"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="issues section" id="issues">
+      <div class="section-head reveal">
+        <p class="eyebrow dark"><span></span> DIVORCE ISSUES</p>
+        <h2>지금, 무엇이<br /><em>가장 두려우신가요?</em></h2>
+      </div>
+      <div class="issue-grid">
+        <article class="issue-card reveal" data-target="property" style="--issue-image: url('assets/divorce-07-apartment-division.webp')">
+          <span class="issue-no">01</span><div class="issue-icon">₩</div><p>내가 일군 재산인데</p><h3>절반을 내줘야 할까?</h3><small>부동산 · 예금 · 주식 · 퇴직금 · 채무</small><button type="button">재산분할 핵심 보기 <span>→</span></button>
+        </article>
+        <article class="issue-card reveal delay-1" data-target="affair" style="--issue-image: url('assets/divorce-04-affair-phone.webp')">
+          <span class="issue-no">02</span><div class="issue-icon">!</div><p>외도 사실은 분명한데</p><h3>증거가 부족하다면?</h3><small>상간소송 · 위자료 · 합법적 증거</small><button type="button">외도 대응 핵심 보기 <span>→</span></button>
+        </article>
+        <article class="issue-card reveal delay-2" data-target="child" style="--issue-image: url('assets/issue-child-custody.png')">
+          <span class="issue-no">03</span><div class="issue-icon">⌂</div><p>아이만은 반드시</p><h3>내가 지키고 싶다면?</h3><small>친권 · 양육권 · 양육비 · 면접교섭</small><button type="button">양육권 핵심 보기 <span>→</span></button>
+        </article>
+        <article class="issue-card reveal delay-3" data-target="refusal" style="--issue-image: url('assets/divorce-03-refusal-separation.webp')">
+          <span class="issue-no">04</span><div class="issue-icon">↯</div><p>상대가 끝까지</p><h3>이혼을 거부한다면?</h3><small>재판상 이혼 · 조정 · 유책사유</small><button type="button">소송 절차 핵심 보기 <span>→</span></button>
+        </article>
       </div>
     </section>
 
@@ -223,6 +236,14 @@
       </div>
     </section>
 
+    <section class="office-gallery" id="office" aria-label="법무법인 율마루 사무실 내부 사진">
+      <img class="office-gallery-bg" id="office-gallery-bg" src="assets/office-01.jpg" alt="" aria-hidden="true" />
+      <div class="office-gallery-shade" aria-hidden="true"></div>
+      <div class="office-gallery-inner">
+        <div class="office-gallery-track" id="office-gallery-track"></div>
+      </div>
+    </section>
+
     <section class="final-cta" id="contact">
       <div class="final-action reveal">
         <section class="final-copy">
@@ -244,17 +265,17 @@
           <div>
             <button class="active" type="button" data-case-type="이혼상담" aria-pressed="true">이혼상담</button>
             <button type="button" data-case-type="재산분할" aria-pressed="false">재산분할</button>
-            <button type="button" data-case-type="상간소송" aria-pressed="false">상간소송</button>
-            <button type="button" data-case-type="양육비" aria-pressed="false">양육비</button>
+            <button type="button" data-case-type="상간·위자료" aria-pressed="false">상간·위자료</button>
+            <button type="button" data-case-type="양육권·양육비" aria-pressed="false">양육권·양육비</button>
             <button type="button" data-case-type="가사·상속" aria-pressed="false">가사·상속</button>
           </div>
           <input name="caseType" type="hidden" value="이혼상담" />
         </fieldset>
         <div class="final-db-fields">
           <label><span>이름<em>*</em></span><input name="name" type="text" autocomplete="name" maxlength="30" placeholder="이름을 입력해 주세요" required /></label>
-          <label><span>연락처<em>*</em></span><input id="final-consult-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000" required /></label>
+          <label><span>연락처<em>*</em></span><input id="final-consult-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000" aria-label="연락처" data-phone-input required /></label>
         </div>
-        <label class="final-db-message"><span>문의 내용<em>*</em></span><textarea name="message" maxlength="1000" placeholder="문의하실 내용을 자세히 적어주세요." required></textarea></label>
+        <label class="final-db-message"><span>문의 내용</span><textarea name="message" maxlength="1000" placeholder="문의하실 내용을 자세히 적어주세요."></textarea></label>
         <label class="final-db-agree"><input name="privacyConsent" type="checkbox" required checked /><span>개인정보 수집·이용에 동의합니다.<em>*</em></span></label>
         <details class="consult-privacy-detail final-db-privacy"><summary>개인정보 수집·이용 안내 보기</summary><p>수집 목적: 상담 신청 접수 및 회신<br />수집 항목: 성함, 연락처, 상담 내용<br />보유 기간: 수집일로부터 1년 후 파기</p></details>
         <input class="consult-honeypot" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -340,6 +361,7 @@
     <div class="mobile-chat-menu" id="mobile-chat-menu" aria-label="채팅 상담 채널 선택" hidden><a href="https://talk.naver.com/ct/w3snxlc" target="_blank" rel="noopener noreferrer">네이버</a><a href="http://pf.kakao.com/_Ykxfxkxj/chat" target="_blank" rel="noopener noreferrer">카톡</a></div>
   </nav>
 
+  <script src="case-data.js"></script>
   <script src="script.js"></script>
   <script src="mobile-booking.js"></script>
 </body>

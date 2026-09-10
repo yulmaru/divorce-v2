@@ -20,11 +20,11 @@
       <span><b>부산이혼전문변호사</b><small>법무법인 율마루</small></span>
     </a>
     <nav aria-label="주요 메뉴">
-      <a href="lawyers.html">변호사</a>
+      <a href="lawyers.html">변호사 소개</a>
       <a href="directions.html">오시는 길</a>
       <a class="nav-inquiry-badge" href="#inquiry" aria-current="page">변호사 상담</a>
     </nav>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="메뉴 열기"><i></i><i></i></button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="메뉴 열기"><i></i><i></i><i></i></button>
   </header>
 
   <main id="inquiry">
@@ -93,6 +93,35 @@
       </form>
     </section>
   </div>
+  <aside class="quick-menu" aria-label="빠른 상담">
+    <button class="quick-reserve" type="button" aria-expanded="false" aria-controls="quick-booking-menu"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>예약</span></button>
+    <button class="quick-chat" type="button" aria-expanded="false" aria-controls="quick-chat-menu"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>채팅상담</span></button>
+    <a href="child-support.html"><i class="fa-solid fa-calculator" aria-hidden="true"></i><span>양육비 계산</span></a>
+    <a href="#top"><b>↑</b><span>TOP</span></a>
+    <div class="quick-booking-menu" id="quick-booking-menu" aria-label="예약 지점 선택" hidden>
+      <a href="https://booking.naver.com/booking/13/bizes/555238" target="_blank" rel="noopener noreferrer">명지</a>
+      <a href="https://booking.naver.com/booking/6/bizes/990663" target="_blank" rel="noopener noreferrer">센텀</a>
+      <a href="https://booking.naver.com/booking/13/bizes/1157793" target="_blank" rel="noopener noreferrer">서면</a>
+      <a href="https://booking.naver.com/booking/6/bizes/1466063" target="_blank" rel="noopener noreferrer">창원</a>
+    </div>
+    <div class="quick-chat-menu" id="quick-chat-menu" aria-label="채팅 상담 채널 선택" hidden><a href="https://talk.naver.com/ct/w3snxlc" target="_blank" rel="noopener noreferrer">네이버</a><a href="http://pf.kakao.com/_Ykxfxkxj/chat" target="_blank" rel="noopener noreferrer">카톡</a></div>
+  </aside>
+
+  <nav class="mobile-bar" aria-label="모바일 빠른 메뉴">
+    <a href="directions.html"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>오시는 길</span></a>
+    <a href="child-support.html"><i class="fa-solid fa-calculator" aria-hidden="true"></i><span>양육비 계산</span></a>
+    <button class="mobile-reserve" type="button" aria-expanded="false" aria-controls="mobile-booking-menu"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>예약</span></button>
+    <a href="tel:1800-6419"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>전화</span></a>
+    <button class="mobile-chat" type="button" aria-expanded="false" aria-controls="mobile-chat-menu"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>채팅상담</span></button>
+    <div class="mobile-booking-menu" id="mobile-booking-menu" aria-label="예약 지점 선택" hidden>
+      <a href="https://booking.naver.com/booking/13/bizes/555238" target="_blank" rel="noopener noreferrer">명지</a>
+      <a href="https://booking.naver.com/booking/6/bizes/990663" target="_blank" rel="noopener noreferrer">센텀</a>
+      <a href="https://booking.naver.com/booking/13/bizes/1157793" target="_blank" rel="noopener noreferrer">서면</a>
+      <a href="https://booking.naver.com/booking/6/bizes/1466063" target="_blank" rel="noopener noreferrer">창원</a>
+    </div>
+    <div class="mobile-chat-menu" id="mobile-chat-menu" aria-label="채팅 상담 채널 선택" hidden><a href="https://talk.naver.com/ct/w3snxlc" target="_blank" rel="noopener noreferrer">네이버</a><a href="http://pf.kakao.com/_Ykxfxkxj/chat" target="_blank" rel="noopener noreferrer">카톡</a></div>
+  </nav>
   <script src="inquiry.js"></script>
+  <script src="mobile-booking.js"></script>
 </body>
 </html>
