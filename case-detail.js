@@ -2,10 +2,10 @@ const params = new URLSearchParams(location.search);
 const item = window.YULMARU_CASES.find(entry => String(entry.id) === params.get("id")) || window.YULMARU_CASES[0];
 
 const lawyerProfiles = {
-  "박상준": { image: "assets/lawyer-park-sang-jun.webp", fields: "재산분할 · 조정이혼 · 위자료" },
-  "임재현": { image: "assets/lawyer-im-jae-hyun.webp", fields: "협의이혼 · 상간소송 · 위자료" },
-  "문지영": { image: "assets/lawyer-moon-ji-young.webp", fields: "친권 · 양육권 · 양육비" },
-  "이주원": { image: "assets/lawyer-lee-ju-won.webp", fields: "재판이혼 · 재산분할 · 협의이혼" }
+  "박상준": { image: "assets/lawyer-cutout-park.png", fields: "재산분할 · 조정이혼 · 위자료" },
+  "임재현": { image: "assets/lawyer-cutout-im.png", fields: "협의이혼 · 상간소송 · 위자료" },
+  "문지영": { image: "assets/lawyer-cutout-moon.png", fields: "친권 · 양육권 · 양육비" },
+  "이주원": { image: "assets/lawyer-cutout-lee.png", fields: "재판이혼 · 재산분할 · 협의이혼" }
 };
 const lawyerOrder = { "박상준": 0, "임재현": 1, "문지영": 2, "이주원": 3 };
 const lawyerNames = item.lawyers.replaceAll(" 변호사", "").split(" · ").sort((a, b) =>

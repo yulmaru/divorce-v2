@@ -67,7 +67,7 @@ document.querySelectorAll(".content-filters button").forEach(button => {
 const legendLibrary = {
   im: {
     name: "박상준 변호사",
-    image: "assets/lawyer-park-sang-jun.webp",
+    image: "assets/lawyer-cutout-park.png",
     videos: [
       { id: "iTzh9SpjjJ8", title: "이혼 전문 변호사가 알려주는 상간 소송 진행 절차와 주의사항" },
       { id: "J6ZrGSALPNY", title: "SK 주식 3배 폭등, 이혼 재산분할도 3배 늘어날까?" },
@@ -76,7 +76,7 @@ const legendLibrary = {
   },
   park: {
     name: "박상준 변호사",
-    image: "assets/lawyer-park-sang-jun.webp",
+    image: "assets/lawyer-cutout-park.png",
     videos: [
       { id: "iTzh9SpjjJ8", title: "이혼 전문 변호사가 알려주는 상간 소송 진행 절차와 주의사항" },
       { id: "3yG2TD5_e8A", title: "이혼소송 얼마나 걸릴까? 현실적인 기간 알려드립니다!" },
@@ -85,7 +85,7 @@ const legendLibrary = {
   },
   moon: {
     name: "문지영 변호사",
-    image: "assets/lawyer-moon-ji-young.webp",
+    image: "assets/lawyer-cutout-moon.png",
     videos: [
       { id: "3yG2TD5_e8A", title: "이혼소송 얼마나 걸릴까? 현실적인 기간 알려드립니다" },
       { id: "J6ZrGSALPNY", title: "SK 주식 3배 폭등, 이혼 재산분할도 3배 늘어날까?" },
@@ -94,7 +94,7 @@ const legendLibrary = {
   },
   lee: {
     name: "이주원 변호사",
-    image: "assets/lawyer-lee-ju-won.webp",
+    image: "assets/lawyer-cutout-lee.png",
     videos: [
       { id: "eo-q3RdrXjI", title: "이혼 재산분할 특유재산·기여도, 혼인 10년 넘으면 무조건 5:5일까요?" },
       { id: "3yG2TD5_e8A", title: "이혼소송 얼마나 걸릴까? 현실적인 기간 알려드립니다!" },
@@ -655,10 +655,10 @@ document.addEventListener("keydown", event => {
 const successCaseTrack = document.querySelector("#success-case-track");
 if (successCaseTrack && window.YULMARU_CASES) {
   const caseLawyerProfiles = {
-    "임재현": "assets/lawyer-im-jae-hyun.webp",
-    "박상준": "assets/lawyer-park-sang-jun.webp",
-    "문지영": "assets/lawyer-moon-ji-young.webp",
-    "이주원": "assets/lawyer-lee-ju-won.webp"
+    "임재현": "assets/lawyer-cutout-im.png",
+    "박상준": "assets/lawyer-cutout-park.png",
+    "문지영": "assets/lawyer-cutout-moon.png",
+    "이주원": "assets/lawyer-cutout-lee.png"
   };
   const renderCaseLawyers = lawyers => {
     const lawyerOrder = { "박상준": 0, "임재현": 1 };
@@ -692,10 +692,12 @@ const successSection = document.querySelector("#success-cases");
 const clientReviewsSection = document.querySelector("#reviews");
 const youtubeSection = document.querySelector("#videos");
 const issuesSection = document.querySelector("#issues");
-if (successSection && youtubeSection && issuesSection) {
+const crossroadsSection = document.querySelector(".crossroads");
+if (successSection && youtubeSection && issuesSection && crossroadsSection) {
   youtubeSection.before(successSection);
   if (clientReviewsSection) successSection.after(clientReviewsSection);
-  youtubeSection.after(issuesSection);
+  youtubeSection.after(crossroadsSection);
+  crossroadsSection.after(issuesSection);
 }
 const successCaseCards = [...document.querySelectorAll(".success-case-card")];
 const successCaseCount = document.querySelector("#success-case-count");
@@ -858,36 +860,163 @@ if (successCaseTrack) {
   }, true);
 }
 
-const clientReviews = [
-  { name:"레나짱", branch:"경남 창원점", date:"2026-09-10(목)", text:"학교 관련 상담을 받고 마음이 한결 후련해졌고, 도움받을 수 있는 부분을 확인할 수 있어 좋았습니다.", photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
-  { name:"후니혀니55", branch:"부산 명지점", date:"2026-09-08(화)", text:"해결되지 않을 것 같아 막막했는데 상담 후 마음이 한결 가벼워졌습니다. 이야기를 잘 들어주시고 어려운 부분도 이해하기 쉽게 설명해주셨습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
-  { name:"맛있으면과식하는소식좌", branch:"부산 센텀점", date:"2026-09-04(금)", text:"감정이 앞서 두서없이 이야기했는데도 끝까지 차분히 들어주셔서 마음이 안정됐습니다. 어린아이와 함께 방문했는데 상담 공간도 편안했고 현실적인 조언이 큰 도움이 됐습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA3MDJfMjk4/MDAxNzgyOTc4MDAyNDEz.0N5p-JKOGDN78eWp3qlQ42X01gkM6YmlsCyONCB6uxIg.RyyN6CBuLLbpWx3a0dIeg-P1DRyYwign9-ng1kCIAK8g.JPEG/E0C2D15D-B15D-46E2-B8A7-787F9979845E.jpeg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
-  { name:"jha****", branch:"부산 명지점", date:"2026-08-28(금)", text:"이혼을 어디서부터 준비해야 할지 막연했는데 상담 후 답답했던 마음과 생각이 정리됐습니다. 편안하게 상담받았습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
-  { name:"Hull22", branch:"경남 창원점", date:"2026-08-04(화)", text:"전문가의 도움이 절실했던 상황에서 여러 방향과 가능한 방법을 차분히 안내받았습니다. 제 일처럼 함께 고민해주는 든든한 지원군이 생긴 느낌이었습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA0MDNfMTkg/MDAxNzc1MTgyMzE2NTcw.ikgZGA6RG8qkL6s1gtL7q1oItRAkMxLV3dh4OWNfCZsg.VqsLlHmbSdUfoY3NOL1sBW6Rh_PG15IH1iFnKlaYjlQg.JPEG/20260403_111054.heic.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
-  { name:"엘비라26", branch:"부산 센텀점", date:"2026-07-24(금)", text:"가족 문제로 처음 법률상담을 받았습니다. 객관적으로 설명해주시고 궁금한 질문에도 친절하게 답해주셔서 많은 도움이 됐습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA1MjZfMTg5/MDAxNzc5NzcyODQwNjE1.EqBBUFuooAI6FEDp75G5wwH9gfoUDGtI8YJdOoPa3NYg.eCrbhy6PkpKepqMgwkWKbwVb3_tDRM8PbGzheLs7WWgg.JPEG/20260526_130847.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
-  { name:"su3****", branch:"부산 서면점", date:"2026-06-11(목)", text:"복잡하고 힘든 상황에서 미처 생각하지 못했던 부분까지 친절하게 설명하고 방법을 제시해주셔서 감사했습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA0MjFfOTQg/MDAxNzc2NzM4OTgyMDUx.Y-38HmhYkh5lM-vrBwQGtrsIKw9V7jhIfnKCJNVOevAg.gClvdOlcrt9OgLW3lkNKAcHsixiZVOdRm_-VGoIMA8kg.JPEG/3E889132-5B71-47D9-96A2-3B4B37A02B4C.jpeg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
-  { name:"으랏차차 형제맘", branch:"부산 서면점", date:"2026-05-29(금)", text:"걱정이 많았는데 상황을 일목요연하고 명쾌하게 설명해주셔서 감사했습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" }
-].sort((a, b) => b.date.localeCompare(a.date));
-const clientReviewTotal = 702;
+const seedClientReviews = [
+  { name:"레나짱", branch:"경남 창원점", date:"2026-09-10(목)", text:"학교 관련 상담을 받고 마음이 한결 후련해졌고, 도움받을 수 있는 부분을 확인할 수 있어 좋았습니다.", lines:["학교 관련 상담을 받고","마음이 한결 후련해졌고,","도움을 받을 수 있는 부분을","확인할 수 있어 좋았습니다."], photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
+  { name:"후니혀니55", branch:"부산 명지점", date:"2026-09-08(화)", text:"해결되지 않을 것 같아 막막했는데 상담 후 마음이 한결 가벼워졌습니다. 이야기를 잘 들어주시고 어려운 부분도 이해하기 쉽게 설명해주셨습니다.", lines:["해결되지 않을 것 같아 막막했는데","상담 후 마음이 한결 가벼워졌습니다.","이야기를 잘 들어주시고","어려운 부분도 이해하기 쉽게 설명해주셨습니다."], photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
+  { name:"맛있으면과식하는소식좌", branch:"부산 센텀점", date:"2026-09-04(금)", text:"감정이 앞서 두서없이 이야기했는데도 끝까지 차분히 들어주셔서 마음이 안정됐습니다. 어린아이와 함께 방문했는데 상담 공간도 편안했고 현실적인 조언이 큰 도움이 됐습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"jha****", branch:"부산 명지점", date:"2026-08-28(금)", text:"이혼을 어디서부터 준비해야 할지 막연했는데 상담 후 답답했던 마음과 생각이 정리됐습니다. 편안하게 상담받았습니다.", lines:["이혼을 어디서부터 준비해야 할지 막연했는데","상담 후 답답했던 마음과 생각이 정리됐습니다.","편안하게 상담받았습니다."], photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
+  { name:"Hull22", branch:"경남 창원점", date:"2026-08-04(화)", text:"전문가의 도움이 절실했던 상황에서 여러 방향과 가능한 방법을 차분히 안내받았습니다. 제 일처럼 함께 고민해주는 든든한 지원군이 생긴 느낌이었습니다.", photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
+  { name:"엘비라26", branch:"부산 센텀점", date:"2026-07-24(금)", text:"가족 문제로 처음 법률상담을 받았습니다. 객관적으로 설명해주시고 궁금한 질문에도 친절하게 답해주셔서 많은 도움이 됐습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"스텔라0716", branch:"부산 센텀점", date:"2026-07-02(목)", text:"친절하고 상세하게 잘 설명해주셨어요 감사합니다", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA3MDJfMjk4/MDAxNzgyOTc4MDAyNDEz.0N5p-JKOGDN78eWp3qlQ42X01gkM6YmlsCyONCB6uxIg.RyyN6CBuLLbpWx3a0dIeg-P1DRyYwign9-ng1kCIAK8g.JPEG/E0C2D15D-B15D-46E2-B8A7-787F9979845E.jpeg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"su3****", branch:"부산 서면점", date:"2026-06-11(목)", text:"복잡하고 힘든 상황에서 미처 생각하지 못했던 부분까지 친절하게 설명하고 방법을 제시해주셔서 감사했습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"딸바보88", branch:"부산 센텀점", date:"2026-05-26(화)", text:"갑작스러운 학폭에 대해 너무 불안했는데 불안함이 조금이나마 없어질 수 있게 친절한 상담과 다른 변호사 사무실에 비해 선임을 강요하는 부분이 없어 매우 만족합니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA1MjZfMTg5/MDAxNzc5NzcyODQwNjE1.EqBBUFuooAI6FEDp75G5wwH9gfoUDGtI8YJdOoPa3NYg.eCrbhy6PkpKepqMgwkWKbwVb3_tDRM8PbGzheLs7WWgg.JPEG/20260526_130847.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
+  { name:"으랏차차 형제맘", branch:"부산 서면점", date:"2026-05-29(금)", text:"걱정이 많았는데 상황을 일목요연하고 명쾌하게 설명해주셔서 감사했습니다.", lines:["걱정이 많았는데","상황을 일목요연하고 명쾌하게 설명해주셔서","감사했습니다."], photo:"", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"샐러드쏭0116", branch:"부산 서면점", date:"2026-04-21(화)", text:"개인문제로 고민하다 소개받고 방문했습니다. 위치도 찾기 쉽고 분위기도 환해서 부담스럽지 않습니다. 미그적거리는 부분 깔끔하게 정리상담해주셔서 감사합니다. 추후 궁금점도 온라인문의 가능하다 해주셔서 더 좋았어요. 감사합니다. 토대로 잘 정리해볼게요.", photos:[
+    "https://pup-review-phinf.pstatic.net/MjAyNjA0MjFfOTQg/MDAxNzc2NzM4OTgyMDUx.Y-38HmhYkh5lM-vrBwQGtrsIKw9V7jhIfnKCJNVOevAg.gClvdOlcrt9OgLW3lkNKAcHsixiZVOdRm_-VGoIMA8kg.JPEG/3E889132-5B71-47D9-96A2-3B4B37A02B4C.jpeg?type=w1500_60_sharpen",
+    "https://pup-review-phinf.pstatic.net/MjAyNjA0MjFfMTI0/MDAxNzc2NzM4OTgwMDMw.aOEnr_Ob1MYFVM0Ss_ESwHUyTmR_gBw8g_mCxHE9xsAg.t_TNkB8OdYB7t_hn0h1jR8AIEOZTOwZbJ0KHpr4tlh4g.JPEG/8E56A7A7-9C0E-4BB7-8B29-68675B29F95D.jpeg?type=w1500_60_sharpen",
+    "https://pup-review-phinf.pstatic.net/MjAyNjA0MjFfNDgg/MDAxNzc2NzM4OTc3MzMw.CnD1jt6Ct88n3du8af5_rBSUzMkII9jqg0gzFGUR6sMg.qjIi2PRvePDfyfuUn-UmuSrEtWO_91X_fr78WxPFsPIg.JPEG/D3612E5F-9F3E-44B7-8A6E-530B93D1FC58.jpeg?type=w1500_60_sharpen"
+  ], source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"댕콩몽", branch:"부산 서면점", date:"2026-04-08(수)", text:"개인적으로 답답한 부분이 있어 변호사님과 상담했습니다. 궁금한 점이 해소되었습니다. 친절히 답변해주시고 공감해 주셔서 감사했어요. 추천드려요.", photo:"", source:"https://map.naver.com/p/entry/place/1381643972?placePath=/review/visitor" },
+  { name:"ㅇㅇㅇㅇㅇ15", branch:"경남 창원점", date:"2026-04-03(금)", text:"변호사님이 너무 친절하게 설명해주셔 감사했어요. 알아듣기 쉽고 조곤조곤 말씀해주시니 너무 좋았습니다.", photo:"https://pup-review-phinf.pstatic.net/MjAyNjA0MDNfMTkg/MDAxNzc1MTgyMzE2NTcw.ikgZGA6RG8qkL6s1gtL7q1oItRAkMxLV3dh4OWNfCZsg.VqsLlHmbSdUfoY3NOL1sBW6Rh_PG15IH1iFnKlaYjlQg.JPEG/20260403_111054.heic.jpg?type=w278_sharpen", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" }
+];
+
+const clientReviews = [...(window.clientReviewsData || []), ...seedClientReviews]
+  .filter((review, index, items) => items.findIndex(item => item.name === review.name && item.branch === review.branch && item.text === review.text) === index)
+  .sort((a, b) => {
+    const right = Date.parse(b.sortDate || b.date) || Number.NEGATIVE_INFINITY;
+    const left = Date.parse(a.sortDate || a.date) || Number.NEGATIVE_INFINITY;
+    return right - left;
+  });
+const clientReviewTotal = clientReviews.length;
+const naverReviewTotal = 523;
+const clientReviewTotalLabel = document.querySelector("#client-review-total");
+if (clientReviewTotalLabel) clientReviewTotalLabel.textContent = naverReviewTotal.toLocaleString("ko-KR");
+const getReviewPhotos = review => Array.isArray(review.photos) ? review.photos : (review.photo ? [review.photo] : []);
+const formatReviewDate = review => {
+  const rawDate = review.sortDate || review.date;
+  const matchedDate = String(rawDate || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!matchedDate) return "날짜 확인 중";
+  const [, year, month, day] = matchedDate;
+  const date = new Date(Number(year), Number(month) - 1, Number(day));
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  return `${year}-${month}-${day}(${weekdays[date.getDay()]})`;
+};
+const getReviewRating = review => {
+  if (Number.isFinite(Number(review.rating))) return Math.min(5, Math.max(0, Number(review.rating)));
+  if (["샐러드쏭0116", "설러드쏭0116"].includes(review.name)) return 4.5;
+  const ratingMatch = String(review.text || "").match(/(?:별점|[★*])\s*([1-5](?:\.[05])?)/);
+  return ratingMatch ? Number(ratingMatch[1]) : 5;
+};
+const escapeReviewText = value => String(value || "")
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("'", "&#39;");
+const formatReviewLines = review => {
+  const originalLines = Array.isArray(review.lines) && review.lines.length ? review.lines : null;
+  if (originalLines) return originalLines.map(line => escapeReviewText(line.trim())).join("<br />");
+
+  const text = String(review.text || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const sentences = text.match(/[^.!?~]+[.!?~]*(?:\s+|$)/g) || [text];
+  const lines = [];
+
+  sentences.forEach(sentence => {
+    const cleanSentence = sentence.trim();
+    if (!cleanSentence) return;
+    const clauses = [];
+    let start = 0;
+    const clauseEnd = /,\s*|(?:알려주시고|알려주셔서|해주시고|해주셔서|봐주시고|봐주셔서|주시고|주셔서|했으며|했고|하며|해서|였고|이었고|이지만|지만|는데|으나|거나|면서)\s+/g;
+    let match;
+    while ((match = clauseEnd.exec(cleanSentence))) {
+      clauses.push(cleanSentence.slice(start, match.index + match[0].length).trim());
+      start = match.index + match[0].length;
+    }
+    if (start < cleanSentence.length) clauses.push(cleanSentence.slice(start).trim());
+
+    let current = "";
+    clauses.filter(Boolean).forEach(clause => {
+      if (current && /^(?:정말\s*)?(?:감사|고맙)/.test(clause)) {
+        lines.push(current);
+        current = clause;
+        return;
+      }
+      if (clause.endsWith(",")) {
+        if (current) lines.push(current);
+        lines.push(clause);
+        current = "";
+        return;
+      }
+      const combined = current ? `${current} ${clause}` : clause;
+      if (current && combined.length > 32) {
+        lines.push(current);
+        current = clause;
+      } else {
+        current = combined;
+      }
+    });
+    if (current) lines.push(current);
+  });
+
+  return lines.map(escapeReviewText).join("<br />");
+};
 
 const clientReviewFeature = document.querySelector("#client-review-feature");
 const clientReviewList = document.querySelector("#client-review-list");
 const clientReviewPosition = document.querySelector("#client-review-position");
-if (clientReviewFeature && clientReviewList && clientReviewPosition) {
-  const renderClientReview = index => {
+const clientReviewPrev = document.querySelector("#client-review-prev");
+const clientReviewNext = document.querySelector("#client-review-next");
+if (clientReviewFeature && clientReviewList && clientReviewPosition && clientReviewPrev && clientReviewNext) {
+  const reviewPageSize = 5;
+  const reviewPageTotal = Math.ceil(clientReviewTotal / reviewPageSize);
+  let reviewPageStart = 0;
+  const renderClientReview = (index, activeButton, showOriginalPhoto = true) => {
     const review = clientReviews[index];
-    const visual = review.photo ? `<div class="client-review-photo"><img src="${review.photo}" alt="${review.branch} 네이버 방문자 리뷰 첨부 사진" loading="lazy" referrerpolicy="no-referrer" /></div>` : "";
-    clientReviewFeature.innerHTML = `<div class="client-review-feature-copy"><div class="client-review-feature-meta"><b>${review.name}</b><span class="client-review-stars" aria-label="별점 5점">★★★★★</span></div><blockquote>“${review.text}”</blockquote>${visual}<footer><span>${review.branch} · ${review.date}</span><a href="${review.source}" target="_blank" rel="noopener noreferrer">원문 출처 보기 ↗</a></footer></div>`;
-    clientReviewPosition.textContent = `${String(index + 1).padStart(3,"0")} / ${String(clientReviewTotal).padStart(3,"0")}`;
-    clientReviewList.querySelectorAll(".client-review-item").forEach((button, buttonIndex) => {
-      const active = buttonIndex === index;
+    const reviewText = formatReviewLines(review);
+    const photos = showOriginalPhoto ? getReviewPhotos(review) : [];
+    const visual = photos.length ? `<div class="client-review-photo${photos.length > 1 ? " is-gallery" : ""}">${photos.map((photo, photoIndex) => `<img src="${photo}" alt="${review.name} 님의 네이버 방문자 리뷰 첨부 사진 ${photoIndex + 1}" loading="lazy" referrerpolicy="no-referrer" />`).join("")}</div>` : "";
+    const reviewLengthClass = review.text.length > 220 ? " is-very-long" : review.text.length > 120 ? " is-long" : "";
+    const featuredProfile = `<span class="client-review-profile" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="5"/><path d="M7 27c.8-6 4-9 9-9s8.2 3 9 9"/></svg></span>`;
+    const reviewDate = formatReviewDate(review);
+    const reviewRating = getReviewRating(review);
+    clientReviewFeature.innerHTML = `<div class="client-review-feature-copy"><div class="client-review-feature-meta"><b>${featuredProfile}<span>${review.name}</span><i>님</i></b><span class="client-review-rating"><time datetime="${reviewDate.slice(0, 10)}">${reviewDate}</time><span class="client-review-stars" aria-label="별점 ${reviewRating}점"><span style="width:${reviewRating / 5 * 100}%">★★★★★</span></span></span></div><div class="client-review-content${reviewLengthClass}"><blockquote>${reviewText}</blockquote>${visual}</div><footer><span><svg class="client-review-location-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-13a7 7 0 1 0-14 0c0 6.9 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>${review.branch}</span><a href="${review.source}" target="_blank" rel="noopener noreferrer">원본 출처 보기</a></footer></div>`;
+    clientReviewList.querySelectorAll(".client-review-item").forEach(button => {
+      const active = button === activeButton;
       button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     });
   };
-  clientReviewList.innerHTML = clientReviews.map((review, index) => `<button class="client-review-item${index === 0 ? " active" : ""}" type="button" role="listitem" aria-pressed="${index === 0}"><span class="client-review-avatar" aria-hidden="true">${review.name.slice(0,1)}</span><span><strong>${review.name} · ${review.branch}</strong><p>${review.text}</p></span><small>${review.photo ? "사진 후기" : "방문 후기"}</small></button>`).join("");
-  clientReviewList.querySelectorAll(".client-review-item").forEach((button, index) => button.addEventListener("click", () => renderClientReview(index)));
-  renderClientReview(0);
+  const showReviewPage = start => {
+    const lastPageStart = (reviewPageTotal - 1) * reviewPageSize;
+    reviewPageStart = Math.max(0, Math.min(start, lastPageStart));
+    const visibleCount = Math.min(reviewPageSize, clientReviewTotal - reviewPageStart);
+    clientReviewList.innerHTML = Array.from({ length:visibleCount }, (_, offset) => {
+      const reviewIndex = reviewPageStart + offset;
+      const review = clientReviews[reviewIndex];
+      const hasOriginalPhoto = getReviewPhotos(review).length > 0;
+      const reviewKind = hasOriginalPhoto ? "photo" : "visit";
+      const reviewKindLabel = hasOriginalPhoto ? "사진" : "리뷰";
+      const reviewAvatar = `<span class="client-review-avatar" aria-hidden="true">${review.branch.split(" ").at(-1)}</span>`;
+      return `<button class="client-review-item${offset === 0 ? " active" : ""}" type="button" role="listitem" aria-pressed="${offset === 0}" data-review-index="${reviewIndex}" data-has-original-photo="${hasOriginalPhoto}">${reviewAvatar}<span><strong>${review.name} 님</strong><p>${review.text}</p></span><small class="client-review-kind ${reviewKind}"><b>${reviewKindLabel}</b></small></button>`;
+    }).join("");
+    const pageButtons = [...clientReviewList.querySelectorAll(".client-review-item")];
+    pageButtons.forEach(button => button.addEventListener("click", event => {
+      event.preventDefault();
+      renderClientReview(Number(button.dataset.reviewIndex), button, button.dataset.hasOriginalPhoto === "true");
+    }));
+    clientReviewPrev.disabled = reviewPageStart === 0;
+    clientReviewNext.disabled = reviewPageStart + reviewPageSize >= clientReviewTotal;
+    clientReviewPosition.textContent = `${(Math.floor(reviewPageStart / reviewPageSize) + 1).toLocaleString("ko-KR")} / ${reviewPageTotal.toLocaleString("ko-KR")}`;
+    if (pageButtons[0]) renderClientReview(Number(pageButtons[0].dataset.reviewIndex), pageButtons[0], pageButtons[0].dataset.hasOriginalPhoto === "true");
+  };
+  clientReviewPrev.addEventListener("click", () => {
+    showReviewPage(reviewPageStart - reviewPageSize);
+  });
+  clientReviewNext.addEventListener("click", () => {
+    showReviewPage(reviewPageStart + reviewPageSize);
+  });
+  showReviewPage(0);
 }
 
 const officeGallery = document.querySelector(".office-gallery");
@@ -911,7 +1040,8 @@ if (officeGallery) {
     ["assets/office-16.jpg", "YULMARU IDENTITY", "율마루의 이름으로 마주하는 신뢰", "벽면에 설치된 법무법인 율마루 로고"],
     ["assets/office-17.jpg", "RECEPTION DESK", "방문객을 정중하게 맞이하는 곳", "율마루 로고가 보이는 정면 안내 데스크"],
     ["assets/office-18.jpg", "OFFICE VIEW", "상담 공간으로 이어지는 차분한 내부", "안내 데스크와 복도가 보이는 사무실" ]
-  ];
+];
+
   const track = officeGallery.querySelector("#office-gallery-track");
   const background = officeGallery.querySelector("#office-gallery-bg");
   const officeLayout = [
