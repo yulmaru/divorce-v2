@@ -887,8 +887,8 @@ const clientReviews = [...(window.clientReviewsData || []), ...seedClientReviews
     const left = Date.parse(a.sortDate || a.date) || Number.NEGATIVE_INFINITY;
     return right - left;
   });
-const clientReviewTotal = clientReviews.length;
 const naverReviewTotal = 523;
+const clientReviewTotal = Math.min(clientReviews.length, naverReviewTotal);
 const clientReviewTotalLabel = document.querySelector("#client-review-total");
 if (clientReviewTotalLabel) clientReviewTotalLabel.textContent = naverReviewTotal.toLocaleString("ko-KR");
 const getReviewPhotos = review => Array.isArray(review.photos) ? review.photos : (review.photo ? [review.photo] : []);
@@ -968,7 +968,7 @@ const clientReviewPosition = document.querySelector("#client-review-position");
 const clientReviewPrev = document.querySelector("#client-review-prev");
 const clientReviewNext = document.querySelector("#client-review-next");
 if (clientReviewFeature && clientReviewList && clientReviewPosition && clientReviewPrev && clientReviewNext) {
-  const reviewPageSize = 5;
+  const reviewPageSize = 6;
   const reviewPageTotal = Math.ceil(clientReviewTotal / reviewPageSize);
   let reviewPageStart = 0;
   const renderClientReview = (index, activeButton, showOriginalPhoto = true) => {
@@ -1042,48 +1042,39 @@ if (officeGallery) {
     ["assets/office-18.jpg", "OFFICE VIEW", "상담 공간으로 이어지는 차분한 내부", "안내 데스크와 복도가 보이는 사무실" ]
 ];
 
-  const track = officeGallery.querySelector("#office-gallery-track");
+  const foreground = officeGallery.querySelector("#office-gallery-image");
   const background = officeGallery.querySelector("#office-gallery-bg");
-  const officeLayout = [
-    [4,1],[5,1],
-    [3,2],[4,2],[5,2],[6,2],
-    [2,3],[3,3],[4,3],[5,3],[6,3],
-    [2,4],[3,4],[4,4],[5,4],[6,4],[7,4],
-    [3,5],[4,5],[5,5],[6,5],
-    [4,6],[5,6],
-    [4,7],[5,7],[6,7],
-    [3,8],[4,8],[5,8],[6,8],
-    [2,9],[3,9],[4,9],[5,9],[6,9],
-    [3,10],[4,10],[5,10],
-    [1,11],[4,11]
-  ];
-  track.innerHTML = officeLayout.map(([column, row], tileIndex) => {
-    const photoIndex = tileIndex % officePhotos.length;
-    const [src, label, caption, alt] = officePhotos[photoIndex];
-    return `<button class="office-gallery-item${tileIndex === 0 ? " active" : ""}" type="button" data-office-index="${photoIndex}" style="grid-column:${column};grid-row:${row}" aria-label="${alt}" aria-pressed="${tileIndex === 0}">
-      <img src="${src}" alt="${alt}" loading="${tileIndex < 8 ? "eager" : "lazy"}" />
-      <span><small>${label}</small><strong>${caption}</strong></span>
-    </button>`;
-  }).join("");
-  const officeItems = [...track.querySelectorAll(".office-gallery-item")];
+  const label = officeGallery.querySelector("#office-gallery-label");
+  const caption = officeGallery.querySelector("#office-gallery-caption");
+  const current = officeGallery.querySelector("#office-gallery-current");
+  const total = officeGallery.querySelector("#office-gallery-total");
   let officeIndex = 0;
   let officeChangeTimer = 0;
-  const showOfficePhoto = (nextIndex, selectedItem) => {
+  const showOfficePhoto = nextIndex => {
     officeIndex = (nextIndex + officePhotos.length) % officePhotos.length;
-    const [src] = officePhotos[officeIndex];
-    officeItems.forEach(item => {
-      const active = item === selectedItem;
-      item.classList.toggle("active", active);
-      item.setAttribute("aria-pressed", String(active));
-    });
+    const [src, nextLabel, nextCaption, alt] = officePhotos[officeIndex];
     officeGallery.classList.add("is-changing");
     window.clearTimeout(officeChangeTimer);
     officeChangeTimer = window.setTimeout(() => {
+      foreground.src = src;
+      foreground.alt = alt;
       background.src = src;
+      label.textContent = nextLabel;
+      caption.textContent = nextCaption;
+      current.textContent = String(officeIndex + 1).padStart(2, "0");
       officeGallery.classList.remove("is-changing");
     }, 180);
   };
-  officeItems.forEach(item => item.addEventListener("click", () => showOfficePhoto(Number(item.dataset.officeIndex), item)));
+  total.textContent = String(officePhotos.length).padStart(2, "0");
+  officeGallery.querySelectorAll("[data-office-direction]").forEach(button => {
+    button.addEventListener("click", () => showOfficePhoto(officeIndex + (button.dataset.officeDirection === "prev" ? -1 : 1)));
+  });
+  let officeTouchX = 0;
+  officeGallery.addEventListener("touchstart", event => { officeTouchX = event.touches[0].clientX; }, { passive:true });
+  officeGallery.addEventListener("touchend", event => {
+    const distance = event.changedTouches[0].clientX - officeTouchX;
+    if (Math.abs(distance) > 45) showOfficePhoto(officeIndex + (distance < 0 ? 1 : -1));
+  }, { passive:true });
 }
 
 const observer = new IntersectionObserver(entries => {
