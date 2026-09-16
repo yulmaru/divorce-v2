@@ -513,8 +513,9 @@ footer { color: #8ea7c7; background: #06162f; padding: 70px clamp(24px,7vw,130px
 .directions-map-info small { color: var(--cyan); font-size: 10px; font-weight: 800; }
 .directions-map-info h2 { margin: 4px 0 5px; font: 700 20px/1.3 var(--serif); color: #fff; }
 .directions-map-info p { margin: 0; color: #c1d2e5; font-size: 12px; line-height: 1.55; }
-.directions-map-actions { flex: 0 0 auto; margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
-.directions-map-actions a { min-width: 142px; padding: 11px 13px; border: 1px solid rgba(188,238,255,.28); border-radius: 9px; display: flex; align-items: center; justify-content: space-between; color: #dcecff; background: rgba(255,255,255,.055); font-size: 11px; font-weight: 800; }
+.directions-map-actions { flex: 0 0 82px; width: 82px; margin-left: auto; display: flex; flex-wrap: nowrap; justify-content: flex-end; gap: 7px; }
+.directions-map-actions a { width: 82px; min-width: 82px; padding: 11px 13px; border: 1px solid rgba(188,238,255,.28); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #dcecff; background: rgba(255,255,255,.055); font-size: 11px; font-weight: 800; white-space: nowrap; }
+.directions-map-actions a span { display: none; }
 .directions-map-actions a:first-child { border-color: transparent; color: #fff; background: var(--gradient-main); }
 .directions-map-actions a:hover,.directions-map-actions a:focus-visible { filter: brightness(1.06); outline: 0; transform: translateY(-1px); }
 .directions-body .site-header nav a[aria-current="page"] { color: var(--cyan); }
@@ -784,11 +785,13 @@ footer { color: #8ea7c7; background: #06162f; padding: 70px clamp(24px,7vw,130px
   .directions-branch small { font-size: 10px; }
   .directions-map-card { border-radius: 11px; }
   .directions-map-frame,.directions-map-frame #directions-map { min-height: 370px; height: 370px; }
-  .directions-map-info { padding: 16px 14px; flex-direction: column; align-items: stretch; }
+  .directions-map-info { min-height: auto; padding: 16px 14px; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; column-gap: 10px; row-gap: 6px; }
+  .directions-map-info > div:first-child { min-width: 0; }
   .directions-map-info h2 { font-size: 20px; }
   .directions-map-info p { font-size: 13px; }
-  .directions-map-actions { align-self: flex-end; justify-content: flex-end; }
-  .directions-map-actions a { width: auto; min-width: 112px; }
+  .directions-map-actions { align-self: start; margin-left: 0; justify-content: flex-end; }
+  .directions-map-actions a { width: auto; min-width: 82px; padding: 11px 13px; justify-content: center; }
+  .directions-map-actions a span { display: none; }
   footer { padding-bottom: 100px; }
   .consult-modal { padding: 14px; }
   .consult-modal-panel { max-height: calc(100vh - 28px); padding: 28px 20px 22px; border-radius: 15px; }
