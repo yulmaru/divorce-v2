@@ -1044,23 +1044,19 @@ if (officeGallery) {
 
   const foreground = officeGallery.querySelector("#office-gallery-image");
   const background = officeGallery.querySelector("#office-gallery-bg");
-  const label = officeGallery.querySelector("#office-gallery-label");
-  const caption = officeGallery.querySelector("#office-gallery-caption");
   const current = officeGallery.querySelector("#office-gallery-current");
   const total = officeGallery.querySelector("#office-gallery-total");
   let officeIndex = 0;
   let officeChangeTimer = 0;
   const showOfficePhoto = nextIndex => {
     officeIndex = (nextIndex + officePhotos.length) % officePhotos.length;
-    const [src, nextLabel, nextCaption, alt] = officePhotos[officeIndex];
+    const [src, , , alt] = officePhotos[officeIndex];
     officeGallery.classList.add("is-changing");
     window.clearTimeout(officeChangeTimer);
     officeChangeTimer = window.setTimeout(() => {
       foreground.src = src;
       foreground.alt = alt;
       background.src = src;
-      label.textContent = nextLabel;
-      caption.textContent = nextCaption;
       current.textContent = String(officeIndex + 1).padStart(2, "0");
       officeGallery.classList.remove("is-changing");
     }, 180);
