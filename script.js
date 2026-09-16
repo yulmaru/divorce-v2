@@ -861,7 +861,7 @@ if (successCaseTrack) {
 }
 
 const seedClientReviews = [
-  { name:"레나짱", branch:"경남 창원점", date:"2026-09-10(목)", text:"학교 관련 상담을 받고 마음이 한결 후련해졌고, 도움받을 수 있는 부분을 확인할 수 있어 좋았습니다.", lines:["학교 관련 상담을 받고","마음이 한결 후련해졌고,","도움을 받을 수 있는 부분을","확인할 수 있어 좋았습니다."], photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
+  { name:"레나짱", branch:"경남 창원점", date:"2026-09-10(목)", text:"상담 받고 마음이 한결 후련해졌고, 도움받을 수 있는 부분을 확인할 수 있어 좋았습니다.", lines:["상담 받고 마음이 한결 후련해졌고,","도움을 받을 수 있는 부분을","확인할 수 있어 좋았습니다."], photo:"", source:"https://map.naver.com/p/entry/place/2023530761?placePath=/review/visitor" },
   { name:"후니혀니55", branch:"부산 명지점", date:"2026-09-08(화)", text:"해결되지 않을 것 같아 막막했는데 상담 후 마음이 한결 가벼워졌습니다. 이야기를 잘 들어주시고 어려운 부분도 이해하기 쉽게 설명해주셨습니다.", lines:["해결되지 않을 것 같아 막막했는데","상담 후 마음이 한결 가벼워졌습니다.","이야기를 잘 들어주시고","어려운 부분도 이해하기 쉽게 설명해주셨습니다."], photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
   { name:"맛있으면과식하는소식좌", branch:"부산 센텀점", date:"2026-09-04(금)", text:"감정이 앞서 두서없이 이야기했는데도 끝까지 차분히 들어주셔서 마음이 안정됐습니다. 어린아이와 함께 방문했는데 상담 공간도 편안했고 현실적인 조언이 큰 도움이 됐습니다.", photo:"", source:"https://map.naver.com/p/entry/place/1142946859?placePath=/review/visitor" },
   { name:"jha****", branch:"부산 명지점", date:"2026-08-28(금)", text:"이혼을 어디서부터 준비해야 할지 막연했는데 상담 후 답답했던 마음과 생각이 정리됐습니다. 편안하게 상담받았습니다.", lines:["이혼을 어디서부터 준비해야 할지 막연했는데","상담 후 답답했던 마음과 생각이 정리됐습니다.","편안하게 상담받았습니다."], photo:"", source:"https://map.naver.com/p/entry/place/1189809417?placePath=/review/visitor" },
