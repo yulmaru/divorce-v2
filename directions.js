@@ -47,17 +47,44 @@ const officeAddress = document.querySelector("#directions-office-address");
 const mapLink = document.querySelector("#directions-map-link");
 const officeButtons = document.querySelectorAll("[data-office]");
 let selectedOffice = "seocho";
+let naverMap = null;
+let naverMarker = null;
 
 function renderOfficeMap(office) {
-  const mapEmbed = document.createElement("iframe");
-  mapEmbed.title = `법무법인 율마루 ${office.name} 지도`;
-  mapEmbed.loading = "eager";
-  mapEmbed.referrerPolicy = "no-referrer-when-downgrade";
-  mapEmbed.src = `https://map.naver.com/p/search/${encodeURIComponent(office.query)}`;
-  mapEmbed.style.width = "100%";
-  mapEmbed.style.height = "100%";
-  mapEmbed.style.border = "0";
-  mapFrame.replaceChildren(mapEmbed);
+  if (!window.naver?.maps) {
+    const fallback = document.createElement("a");
+    fallback.href = office.naver;
+    fallback.target = "_blank";
+    fallback.rel = "noopener noreferrer";
+    fallback.textContent = `${office.name} 네이버 지도 크게 보기`;
+    fallback.style.cssText = "display:grid;width:100%;height:100%;place-items:center;color:#0b2453;font-weight:800;text-align:center;background:#dce8fa;";
+    mapFrame.replaceChildren(fallback);
+    return;
+  }
+
+  const position = new naver.maps.LatLng(office.lat, office.lng);
+
+  if (!naverMap) {
+    mapFrame.replaceChildren();
+    naverMap = new naver.maps.Map(mapFrame, {
+      center: position,
+      zoom: 16,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: naver.maps.Position.TOP_RIGHT
+      }
+    });
+    naverMarker = new naver.maps.Marker({
+      position,
+      map: naverMap,
+      title: `법무법인 율마루 ${office.name}`
+    });
+    return;
+  }
+
+  naverMap.setCenter(position);
+  naverMarker.setPosition(position);
+  naverMarker.setTitle(`법무법인 율마루 ${office.name}`);
 }
 
 function selectOffice(key) {
